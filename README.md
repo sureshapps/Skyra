@@ -1,8 +1,8 @@
-# STRATEN
+# SKYRA
 
-Repository: [github.com/nishal21/weather](https://github.com/nishal21/weather) · License: MPL-2.0
+Repository: [github.com/sureshapps/Skyra](https://github.com/sureshapps/Skyra) · License: MPL-2.0
 
-Live weather for cities in India and elsewhere. Hourly and 7-day outlook, rain, wind, UV, air quality, city search, GPS, saved places, and language support.
+Live weather for cities in Malaysia and elsewhere. Hourly and 7-day outlook, rain, wind, UV, air quality, city search, GPS, saved places, and language support.
 
 ## What it includes
 
@@ -90,7 +90,7 @@ You may use, modify, and distribute the code under MPL-2.0. If you modify MPL-co
 
 ## Copyright and assets
 
-Copyright for the project source code is held by [nishal21](https://github.com/nishal21), under MPL-2.0.
+Copyright for the project source code is held by [Suresh Kaleyannan](https://github.com//sureshapps), under MPL-2.0.
 
 Images, animations, icons, videos, fonts, and other media in this project may belong to their respective owners and are not necessarily covered by MPL-2.0. Use or redistribution of those assets may require separate permission or license from the original rights holders.
 
