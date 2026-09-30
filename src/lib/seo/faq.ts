@@ -1,14 +1,14 @@
 /** FAQ for answer engines and FAQPage JSON-LD. Plain answers, no marketing fluff. */
 export const SITE_FAQ = [
   {
-    question: "What is STRATEN?",
+    question: "What is SKYRA?",
     answer:
-      "STRATEN is a free weather site for India and cities worldwide. It shows current temperature, hourly and 7-day outlooks, rain, wind, UV, air quality, and short alerts based on the forecast.",
+      "SKYRA is a free weather site for Malaysia and cities worldwide. It shows current temperature, hourly and 7-day outlooks, rain, wind, UV, air quality, and short alerts based on the forecast.",
   },
   {
     question: "Which cities can I look up?",
     answer:
-      "Search any city you need. India coverage includes major metros and many districts, including Mumbai, Delhi, Kochi, Guwahati, and Leh.",
+      "Search any city you need. Malaysia coverage includes major metros and many districts, including Petaling, Subang, Sunway, Klang, and Banting.",
   },
   {
     question: "Where does the forecast come from?",
@@ -16,7 +16,7 @@ export const SITE_FAQ = [
       "Forecasts come from Open-Meteo. Place search uses Open-Meteo geocoding. GPS place names use BigDataCloud reverse geocoding. Alerts are built from those forecast fields, not from official IMD bulletins.",
   },
   {
-    question: "Can I use Malayalam, Hindi, or other languages?",
+    question: "Can I use Malay, Chinese, or other languages?",
     answer:
       "Yes. The site starts in your phone or browser language when possible. You can switch to 70+ languages. UI labels are translated online. Place names use localized geocoding when the provider supports it.",
   },
@@ -28,6 +28,6 @@ export const SITE_FAQ = [
   {
     question: "Are the alerts official IMD warnings?",
     answer:
-      "No. Alerts are tips derived from the live forecast so you can plan your day. They are not India Meteorological Department colour bulletins.",
+      "No. Alerts are tips derived from the live forecast so you can plan your day. They are not IMD colour bulletins.",
   },
 ] as const;
