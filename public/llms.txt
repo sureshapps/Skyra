@@ -1,12 +1,12 @@
-# STRATEN
+# SKYRA
 
-STRATEN shows live weather for India and cities worldwide: temperature, hourly and 7-day outlook, rain, wind, UV, air quality, and short forecast-based alerts.
+SKYRA shows live weather for Malaysia and cities worldwide: temperature, hourly and 7-day outlook, rain, wind, UV, air quality, and short forecast-based alerts.
 
 ## Project
 
-- Name: STRATEN
-- Maintainer: nishal21 (https://github.com/nishal21)
-- Source: https://github.com/nishal21/weather
+- Name: SURESH KALEYANNAN
+- Maintainer: nishal21 (https://github.com/sureshapps)
+- Source: https://github.com/sureshapps/Skyra
 - License: MPL-2.0 (https://www.mozilla.org/MPL/2.0/)
 - Built with: Next.js 16, React 19, TypeScript
 
@@ -33,21 +33,21 @@ Open the site, search a city or allow GPS, and read the forecast in your languag
 
 ## Copyright
 
-Source code is MPL-2.0, copyright nishal21. Images, animations, and video may belong to their respective owners. See the repository README.
+Source code is MPL-2.0, copyright Suresh Kaleyannan. Images, animations, and video may belong to their respective owners. See the repository README.
 
 ## Links
 
-- Home: /
-- Repository: https://github.com/nishal21/weather
-- Example cities: Mumbai, Delhi, Bengaluru, Chennai, Kolkata, Hyderabad, Kochi, Thiruvananthapuram
+- Home: SKYRA
+- Repository: https://github.com/sureshapps/Skyra
+- Example cities: Petaling Jaya, Subang, Sunway, Puchong, Klang
 
 ## FAQ
 
-Q: What is STRATEN?
-A: A free open-source weather site for India and global cities, with hourly and 7-day forecasts plus air quality.
+Q: What is SKYRA?
+A: A free open-source weather site for Malaysia and global cities, with hourly and 7-day forecasts plus air quality.
 
 Q: Who maintains it?
-A: nishal21. The source is on GitHub under MPL-2.0.
+A: Suresh Kaleyannan. The source is on GitHub under MPL-2.0.
 
 Q: Which languages work?
 A: English and 70+ others. Default follows the phone or browser when possible.
