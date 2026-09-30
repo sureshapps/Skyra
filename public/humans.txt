@@ -1,10 +1,10 @@
 /* TEAM */
-Maintainer: nishal21
-GitHub: https://github.com/nishal21
-Repository: https://github.com/nishal21/weather
+Maintainer: SURESH KALEYANNAN
+GitHub: https://github.com/sureshapps
+Repository: https://github.com/sureshapps/Skyra
 
 /* SITE */
-Name: STRATEN
+Name: SKYRA
 Purpose: Live weather for India and worldwide cities
 Stack: Next.js, React, TypeScript
 License: MPL-2.0
@@ -16,3 +16,6 @@ Reverse geocode: BigDataCloud Client API
 
 /* THANKS */
 Weather data providers and open-source tooling that make this site possible.
+
+
+
