@@ -2,7 +2,7 @@ import { SITE, absoluteUrl } from "./site";
 import { GLOBAL_JSON_LD } from "./json-ld";
 
 const SOCIAL_DESCRIPTION =
-  "Live weather for India and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
+  "Live weather for Malaysia and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
 
 /**
  * Share image path. Keep the designed OG art in public/og-share.jpg —
@@ -14,7 +14,7 @@ export const OG_IMAGE = {
   url: absoluteUrl(OG_IMAGE_PATH),
   width: 1200,
   height: 630,
-  alt: `${SITE.name}: live weather for India and worldwide cities`,
+  alt: `${SITE.name}: live weather for Malaysia and worldwide cities`,
   type: "image/jpeg",
 } as const;
 
@@ -42,7 +42,7 @@ export function seoBotHtml(): string {
   const manifest = absoluteUrl("/site.webmanifest");
 
   return `<!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-MY">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -53,8 +53,8 @@ export function seoBotHtml(): string {
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
 <meta name="application-name" content="${escapeHtml(SITE.name)}"/>
 <meta name="author" content="${escapeHtml(SITE.maintainer)}"/>
-<meta name="geo.region" content="IN"/>
-<meta name="geo.placename" content="India"/>
+<meta name="geo.region" content="MY"/>
+<meta name="geo.placename" content="Malaysia"/>
 <link rel="manifest" href="${escapeHtml(manifest)}"/>
 <link rel="icon" href="${escapeHtml(logo)}" type="${SITE.logoType}" sizes="500x500"/>
 <link rel="icon" type="image/png" sizes="32x32" href="${escapeHtml(fav32)}"/>
@@ -86,7 +86,7 @@ export function seoBotHtml(): string {
 <main>
 <h1>${escapeHtml(SITE.name)}</h1>
 <p>${escapeHtml(longDesc)}</p>
-<p><a href="${escapeHtml(url)}">Open live weather</a></p>
+<p><a href="${escapeHtml(url)}">Open Live Weather</a></p>
 </main>
 </body>
 </html>`;
