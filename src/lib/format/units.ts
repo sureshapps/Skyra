@@ -1,4 +1,4 @@
-const IST = "Asia/Kolkata";
+const IST = "Asia/­Kuala_Lumpur";
 
 export function formatTempC(n: number): string {
   return `${Math.round(n)}°C`;
@@ -14,8 +14,8 @@ export function formatMm(mm: number): string {
 
 export function formatIstTime(iso: string): string {
   try {
-    return new Intl.DateTimeFormat("en-IN", {
-      timeZone: IST,
+    return new Intl.DateTimeFormat("en-MY", {
+      timeZone: MYT,
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -27,8 +27,8 @@ export function formatIstTime(iso: string): string {
 
 export function formatIstDate(isoDate: string): string {
   try {
-    return new Intl.DateTimeFormat("en-IN", {
-      timeZone: IST,
+    return new Intl.DateTimeFormat("en-MY", {
+      timeZone: MYT,
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -40,8 +40,8 @@ export function formatIstDate(isoDate: string): string {
 
 export function formatUpdatedAt(iso: string): string {
   try {
-    return new Intl.DateTimeFormat("en-IN", {
-      timeZone: IST,
+    return new Intl.DateTimeFormat("en-MY", {
+      timeZone: MYT,
       day: "numeric",
       month: "short",
       hour: "numeric",
