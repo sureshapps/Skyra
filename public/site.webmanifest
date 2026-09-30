@@ -1,7 +1,7 @@
 {
-  "name": "STRATEN",
-  "short_name": "STRATEN",
-  "description": "Live weather for cities in India and around the world. Hourly and 7-day forecasts, rain, wind, UV, air quality, and short alerts you can use.",
+  "name": "SKYRA",
+  "short_name": "SKYRA",
+  "description": "Live weather for cities in Malaysia and around the world. Hourly and 7-day forecasts, rain, wind, UV, air quality, and short alerts you can use.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070b12",
