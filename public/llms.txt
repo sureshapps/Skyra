@@ -5,7 +5,7 @@ SKYRA shows live weather for Malaysia and cities worldwide: temperature, hourly 
 ## Project
 
 - Name: SURESH KALEYANNAN
-- Maintainer: nishal21 (https://github.com/sureshapps)
+- Maintainer: SURESH KALEYANNAN (https://github.com/sureshapps)
 - Source: https://github.com/sureshapps/Skyra
 - License: MPL-2.0 (https://www.mozilla.org/MPL/2.0/)
 - Built with: Next.js 16, React 19, TypeScript
