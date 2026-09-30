@@ -6,7 +6,7 @@ import { OG_IMAGE } from "./bot-shell";
 
 /** Keep social cards under ~125 characters so mobile previews do not cut mid-sentence. */
 const SOCIAL_DESCRIPTION =
-  "Live weather for India and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
+  "Live weather for Malaysia and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
 
 const defaultOg = {
   title: `${SITE.name} | ${SITE.tagline}`,
@@ -93,8 +93,8 @@ export const rootMetadata: Metadata = {
     statusBarStyle: "black-translucent",
   },
   other: {
-    "geo.region": "IN",
-    "geo.placename": "India",
+    "geo.region": "MY",
+    "geo.placename": "Malaysia",
     "code-repository": SITE.repository,
     license: SITE.license,
   },
