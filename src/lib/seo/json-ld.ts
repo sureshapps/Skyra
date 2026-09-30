@@ -19,7 +19,7 @@ export function organizationJsonLd() {
     },
     sameAs: [SITE.repository, SITE.maintainerUrl],
     areaServed: [
-      { "@type": "Country", name: "India" },
+      { "@type": "Country", name: "Malaysia" },
       { "@type": "Place", name: "World" },
     ],
   };
@@ -32,7 +32,7 @@ export function websiteJsonLd() {
     name: SITE.name,
     url: SITE.url,
     description: SITE.description,
-    inLanguage: ["en-IN", "ml-IN", "hi-IN"],
+    inLanguage: ["en-MY", "en-ZH", "en-TA"],
     publisher: { "@type": "Organization", name: SITE.name },
     potentialAction: {
       "@type": "SearchAction",
@@ -53,7 +53,7 @@ export function webApplicationJsonLd() {
     url: SITE.url,
     applicationCategory: "WeatherApplication",
     operatingSystem: "Web",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
     description: SITE.description,
     author: {
       "@type": "Person",
@@ -111,7 +111,7 @@ export function weatherPageJsonLd(
       address: {
         "@type": "PostalAddress",
         addressRegion: location.state || undefined,
-        addressCountry: location.countryCode || "IN",
+        addressCountry: location.countryCode || "MY",
       },
       geo: {
         "@type": "GeoCoordinates",
