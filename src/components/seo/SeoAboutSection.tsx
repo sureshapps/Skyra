@@ -6,7 +6,7 @@ export function SeoAboutSection() {
     <article className="seo-prose" aria-labelledby="seo-about-heading">
       <h2 id="seo-about-heading">About {SITE.name}</h2>
       <p>
-        {SITE.name} is a free weather site for cities in India and elsewhere.
+        {SITE.name} is a free weather site for cities in Malaysia and elsewhere.
         Pick a place, allow GPS, or open a saved location. You get current
         conditions, an hourly view, a 7-day outlook, rain and wind, UV, air
         quality, and short alerts built from the forecast.
@@ -25,7 +25,7 @@ export function SeoAboutSection() {
         </a>
         . Repository:{" "}
         <a href={SITE.repository} rel="me">
-          github.com/nishal21/weather
+          github.com/sureshapps/Skyra
         </a>
         .
       </p>
