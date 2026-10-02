@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
         id: `gps-${lat.toFixed(4)}-${lon.toFixed(4)}`,
         name: nearYou,
         state: "",
-        countryCode: "IN",
+        countryCode: "MY",
         lat,
         lon,
       },
