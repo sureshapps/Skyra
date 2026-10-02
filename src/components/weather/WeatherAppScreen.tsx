@@ -28,6 +28,7 @@ import {
 import { indiaSeasonFromDate } from "@/lib/weather/season";
 import { WeatherLottie } from "@/components/weather/scene/WeatherLottie";
 import { MagnifyingGlass } from "@phosphor-icons/react";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 type Props = {
   snapshot: WeatherSnapshot;
@@ -92,7 +93,7 @@ export function WeatherAppScreen({
     <div
       className={`relative min-h-[100dvh] w-full overflow-x-hidden bg-gradient-to-b ${pageGradient}`}
     >
-      <section className="relative isolate flex w-full flex-col min-h-[min(86dvh,46rem)] sm:min-h-[min(82dvh,50rem)] lg:min-h-[min(78dvh,54rem)]">
+      <section className="theme-keep-dark relative isolate flex w-full flex-col min-h-[min(86dvh,46rem)] sm:min-h-[min(82dvh,50rem)] lg:min-h-[min(78dvh,54rem)]">
         <WeatherScene
           condition={current.condition}
           isDay={isDay}
@@ -125,6 +126,7 @@ export function WeatherAppScreen({
               >
                 <MagnifyingGlass className="size-5" weight="bold" />
               </button>
+              <ThemeToggle />
               <SavePlaceButton location={location} />
               <Suspense fallback={null}>
                 <UseMyLocationButton />
@@ -173,7 +175,7 @@ export function WeatherAppScreen({
       </section>
 
       {/* Content bed: phone stack on mobile, multi-column on desktop */}
-      <div className="relative z-20 -mt-12 bg-gradient-to-b from-transparent via-[#070b12]/88 to-[#070b12] pt-12 sm:-mt-16 sm:pt-16">
+      <div className="content-bed relative z-20 -mt-12 pt-12 sm:-mt-16 sm:pt-16">
         <main
           id="main-content"
           className="relative mx-auto w-full max-w-lg px-4 pb-10 sm:max-w-2xl sm:px-6 md:max-w-4xl md:pb-14 lg:max-w-6xl lg:px-8"
@@ -238,7 +240,7 @@ export function WeatherAppScreen({
       </div>
 
       {searchOpen ? (
-        <div className="fixed inset-0 z-50 overflow-hidden flex items-start justify-center bg-[#070b12]/70 px-4 pt-[max(10vh,3.5rem)] backdrop-blur-md sm:pt-[12vh]">
+        <div className="fixed inset-0 z-50 overflow-hidden flex items-start justify-center bg-[rgb(var(--bg-rgb)/0.7)] px-4 pt-[max(10vh,3.5rem)] backdrop-blur-md sm:pt-[12vh]">
           <button
             type="button"
             className="absolute inset-0"
