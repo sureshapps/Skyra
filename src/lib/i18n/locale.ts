@@ -61,9 +61,11 @@ export function resolveLanguage(
 
 export function intlLocaleTag(code: string): string {
   const c = normalizeLanguageCode(code);
-  if (c === "en") return "en-IN";
+  if (c === "en") return "en-MY";
+  if (c === "ms") return "ms-MY";
   return c;
 }
+
 
 /** Open-Meteo geocoding/forecast language (falls back to en when unsupported). */
 const OPEN_METEO_LANGS = new Set([
