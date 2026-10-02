@@ -7,6 +7,10 @@
   --foreground: #eef3f8;
   --ink-rgb: 255 255 255;
   --field-rgb: 17 26 41;
+  --well: rgb(0 0 0 / 0.2);
+  --well-strong: rgb(0 0 0 / 0.35);
+  --line-a: #fde68a;
+  --line-b: #fbbf24;
   --accent: #38bdf8;
   --accent-deep: #0ea5e9;
   --link: rgb(125 211 252 / 0.9);
@@ -54,6 +58,10 @@
   --foreground: #0f1b2d;
   --ink-rgb: 15 27 45;
   --field-rgb: 255 255 255;
+  --well: rgb(15 27 45 / 0.07);
+  --well-strong: rgb(15 27 45 / 0.12);
+  --line-a: #f59e0b;
+  --line-b: #d97706;
   --accent: #0284c7;
   --accent-deep: #0369a1;
   --link: #0369a1;
@@ -83,14 +91,22 @@
   --footer-link: rgb(15 27 45 / 0.75);
 
   --color-white: #0f1b2d;
+  --color-sky-100: #0369a1;
   --color-sky-200: #0369a1;
   --color-sky-300: #0284c7;
   --color-sky-400: #0ea5e9;
+  --color-amber-200: #b45309;
+  --color-violet-200: #7c3aed;
+  --color-slate-100: #475569;
 }
 
 :root[data-theme="light"] .theme-keep-dark {
   color-scheme: dark;
   --color-white: #fff;
+  --color-sky-100: #e0f2fe;
+  --color-amber-200: #fde68a;
+  --color-violet-200: #ddd6fe;
+  --color-slate-100: #f1f5f9;
   --color-sky-200: #bae6fd;
   --color-sky-300: #7dd3fc;
   --color-sky-400: #38bdf8;
