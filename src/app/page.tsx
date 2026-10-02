@@ -68,7 +68,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         <Suspense fallback={null}>
           <AutoLocate />
         </Suspense>
-        <div className="welcome-shell flex items-center justify-center px-4">
+        <div className="relative flex min-h-[100dvh] w-full items-center justify-center bg-gradient-to-b from-[#0a121c] via-[#0b1410] to-[#070b12] px-4">
           <main id="main-content" role="alert" className="relative z-10 w-full max-w-xl">
             <div className="search-modal-panel overflow-hidden p-5 shadow-2xl">
               <h1 className="text-xl font-semibold text-white">

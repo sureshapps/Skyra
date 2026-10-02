@@ -6,7 +6,6 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { rootMetadata } from "@/lib/seo/metadata";
 import { GLOBAL_JSON_LD } from "@/lib/seo/json-ld";
 import { SITE } from "@/lib/seo/site";
-import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,18 +28,16 @@ export const viewport: Viewport = {
   themeColor: SITE.themeColor,
   width: "device-width",
   initialScale: 1,
-  colorScheme: "dark light",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
-      suppressHydrationWarning
       className={`${outfit.variable} ${plex.variable} h-full antialiased`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <link rel="llms-txt" href="/llms.txt" />
         <link rel="author" type="text/plain" href="/humans.txt" />
         <link rel="author" href="https://github.com/nishal21" />
