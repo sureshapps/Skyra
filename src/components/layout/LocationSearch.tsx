@@ -179,7 +179,7 @@ export function LocationSearch({ current, onClose, layout }: Props) {
     ? ""
     : isGlass
       ? "search-modal-panel overflow-hidden shadow-2xl"
-      : "rounded-2xl border border-white/12 bg-black/20 p-2.5";
+      : "rounded-2xl border border-white/12 bg-[rgb(var(--bg-rgb)/0.2)] p-2.5";
 
   const content = langOpen ? (
     <LanguagePickerPanel
@@ -194,7 +194,7 @@ export function LocationSearch({ current, onClose, layout }: Props) {
         className={
           isGlass
             ? "flex items-center gap-2.5 border-b border-white/10 bg-white/[0.03] px-4 py-3.5"
-            : "flex items-center gap-2 rounded-xl border border-white/10 bg-[#111a29]/80 px-3 py-2.5 shadow-inner focus-within:border-sky-400/55 focus-within:ring-2 focus-within:ring-sky-400/30"
+            : "flex items-center gap-2 rounded-xl border border-white/10 bg-[rgb(var(--field-rgb)/0.8)] px-3 py-2.5 shadow-inner focus-within:border-sky-400/55 focus-within:ring-2 focus-within:ring-sky-400/30"
         }
       >
         <MagnifyingGlass
