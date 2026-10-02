@@ -41,7 +41,7 @@ export async function reverseGeocode(
     data.localityInfo?.administrative?.find((a) => a.adminLevel >= 5)?.name ||
     "Near you";
   const state = data.principalSubdivision || "";
-  const countryCode = (data.countryCode || "IN").toUpperCase();
+  const countryCode = (data.countryCode || "MY").toUpperCase();
 
   return {
     id: `gps-${lat.toFixed(4)}-${lon.toFixed(4)}`,

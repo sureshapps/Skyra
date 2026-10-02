@@ -12,7 +12,7 @@ export type WeatherCondition =
   | "windy";
 
 export type AlertSeverity = "white" | "green" | "yellow" | "orange" | "red";
-export type DataProvider = "open-meteo" | "mock" | "imd";
+export type DataProvider = "open-meteo" | "mock" | "metmalaysia";
 
 export type RainfallClass =
   | "none"
@@ -61,7 +61,7 @@ export interface DistrictForecastBoard {
   days: string[];
   rows: DistrictForecastRow[];
   officialChartUrl?: string;
-  source: DataProvider | "ksdma-sample";
+  source: DataProvider | "metmalaysia-sample";
 }
 
 export interface DistrictAlertGroup {
@@ -82,7 +82,7 @@ export interface AlertBulletin {
   tips: AlertActionTip[];
   board: DistrictForecastBoard;
   sourceUrl?: string;
-  source: DataProvider | "ksdma-sample";
+  source: DataProvider | "metmalaysia-sample";
 }
 
 export interface WeatherAlert {

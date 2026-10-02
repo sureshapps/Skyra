@@ -7,15 +7,15 @@ import type {
 
 function dayRange(isoDate: string): { from: string; to: string } {
   return {
-    from: `${isoDate}T00:00:00+05:30`,
-    to: `${isoDate}T23:59:59+05:30`,
+    from: `${isoDate}T00:00:00+08:00`,
+    to: `${isoDate}T23:59:59+08:00`,
   };
 }
 
 function formatAlertDay(isoDate: string): string {
   try {
     const d = new Date(`${isoDate}T12:00:00`);
-    return new Intl.DateTimeFormat("en-IN", {
+    return new Intl.DateTimeFormat("en-MY", {
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -76,7 +76,7 @@ export function deriveAlerts(snapshot: WeatherSnapshot): {
     });
   }
 
-  if (current.condition === "heatwave" || (current.temperatureC ?? 0) >= 40) {
+  if (current.condition === "heatwave" || (current.temperatureC ?? 0) >= 37) {
     push(
       "red",
       "Extreme heat",
@@ -123,7 +123,7 @@ export function deriveAlerts(snapshot: WeatherSnapshot): {
         label: day.conditionLabel,
         mm: day.precipitationSumMm,
       });
-    } else if (day.maxTempC >= 40) {
+    } else if (day.maxTempC >= 35) {
       push(
         "orange",
         `Very hot · ${formatAlertDay(day.date)}`,
@@ -181,12 +181,12 @@ export function deriveAlerts(snapshot: WeatherSnapshot): {
     });
   }
 
-  if (location.countryCode === "IN" && tips.length > 0) {
+  if (location.countryCode === "MY" && tips.length > 0) {
     tips.push({
       id: "tip-helpline",
-      text: "In an emergency in India, call local disaster helplines (often 1070 / 1077).",
+      text: "In an emergency in Malaysia, call 999.",
       priority: 2,
-      phoneHref: "tel:1077",
+      phoneHref: "tel:999",
     });
   }
 

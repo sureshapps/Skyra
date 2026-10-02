@@ -5,7 +5,7 @@ import {
   DEFAULT_LOCATION,
   findQuickCity,
   parseCoords,
-} from "./locations/india-cities";
+} from "./locations/malaysia-cities";
 import { searchPlaces } from "./geocoding";
 import { reverseGeocode } from "./reverse-geocode";
 import {
@@ -24,7 +24,7 @@ import { serverEnv } from "@/lib/env/server";
 
 export function getDataSource(): DataProvider {
   const raw = serverEnv.weatherDataSource;
-  if (raw === "mock" || raw === "imd" || raw === "open-meteo") return raw;
+  if (raw === "mock" || raw === "metmalaysia" || raw === "open-meteo") return raw;
   return "open-meteo";
 }
 
@@ -50,7 +50,7 @@ export async function resolveLocation(
               : await translateOnline("Near you", locale)
             : await translateOnline("Selected place", locale)),
         state: q.state?.trim() || "",
-        countryCode: q.cc?.trim().toUpperCase() || "IN",
+        countryCode: q.cc?.trim().toUpperCase() || "MY",
         lat,
         lon,
       };
@@ -76,7 +76,7 @@ export async function resolveLocation(
         id: `coord-${coords.lat}-${coords.lon}`,
         name: q.name?.trim() || "Selected place",
         state: q.state?.trim() || "",
-        countryCode: q.cc?.trim().toUpperCase() || "IN",
+        countryCode: q.cc?.trim().toUpperCase() || "MY",
         lat: coords.lat,
         lon: coords.lon,
       };
@@ -85,7 +85,7 @@ export async function resolveLocation(
 
   if (q.q && q.q.trim().length >= 2) {
     const hits = await searchPlaces(q.q, {
-      countryCode: "IN",
+      countryCode: "MY",
       count: 1,
       language: locale,
     });

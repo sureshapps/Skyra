@@ -2,7 +2,7 @@ import type { LocationRef, WeatherProvider, WeatherSnapshot } from "./types";
 import { mapOpenMeteoToSnapshot } from "./mappers/open-meteo";
 import { deriveAlerts } from "./derive-alerts";
 import { categorizeEuropeanAqi } from "./aqi";
-import { DEFAULT_LOCATION } from "./locations/india-cities";
+import { DEFAULT_LOCATION } from "./locations/malaysia-cities";
 import { openMeteoLanguage, type AppLocale } from "@/lib/i18n/locale";
 
 const OM_URL = "https://api.open-meteo.com/v1/forecast";
@@ -19,7 +19,7 @@ export class OpenMeteoWeatherService implements WeatherProvider {
     locale: AppLocale = "en",
   ): Promise<WeatherSnapshot> {
     const timezone =
-      location.countryCode === "IN" ? "Asia/Kolkata" : "auto";
+      location.countryCode === "MY" ? "Asia/Kuala_Lumpur" : "auto";
     const language = openMeteoLanguage(locale);
 
     const params = new URLSearchParams({

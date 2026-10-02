@@ -4,7 +4,7 @@ import type {
   WeatherSnapshot,
 } from "./types";
 import { deriveAlerts } from "./derive-alerts";
-import { DEFAULT_LOCATION, findQuickCity, INDIA_QUICK_CITIES } from "./locations/india-cities";
+import { DEFAULT_LOCATION, findQuickCity, MALAYSIA_QUICK_CITIES } from "./locations/malaysia-cities";
 
 function mockSnapshot(location: LocationRef): WeatherSnapshot {
   const now = new Date();
@@ -81,15 +81,14 @@ export class MockWeatherService implements WeatherProvider {
     await new Promise((r) => setTimeout(r, 150));
     const location =
       findQuickCity(locationId) ??
-      INDIA_QUICK_CITIES.find((c) => c.id === locationId) ??
       DEFAULT_LOCATION;
     return mockSnapshot(location);
   }
 
   async searchLocations(query: string): Promise<LocationRef[]> {
     const q = query.trim().toLowerCase();
-    if (!q) return INDIA_QUICK_CITIES;
-    return INDIA_QUICK_CITIES.filter(
+    if (!q) return MALAYSIA_QUICK_CITIES;
+    return MALAYSIA_QUICK_CITIES.filter(
       (d) =>
         d.name.toLowerCase().includes(q) ||
         d.state.toLowerCase().includes(q),
