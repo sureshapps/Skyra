@@ -1,19 +1,100 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: dark;
   --background: #070b12;
+  --bg-rgb: 7 11 18;
   --foreground: #eef3f8;
+  --ink-rgb: 255 255 255;
+  --field-rgb: 17 26 41;
   --accent: #38bdf8;
   --accent-deep: #0ea5e9;
+  --link: rgb(125 211 252 / 0.9);
   --muted: rgb(238 243 248 / 0.5);
   --muted-strong: rgb(238 243 248 / 0.72);
   --panel: rgb(255 255 255 / 0.08);
   --panel-border: rgb(255 255 255 / 0.1);
+  --panel-bg: linear-gradient(
+    165deg,
+    rgb(56 189 248 / 0.06) 0%,
+    rgb(255 255 255 / 0.07) 42%,
+    rgb(255 255 255 / 0.045) 100%
+  );
+  --panel-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 10px 32px rgb(0 0 0 / 0.22);
+  --panel-solid: rgb(18 24 34 / 0.96);
+  --modal-border: rgb(255 255 255 / 0.12);
+  --modal-bg: linear-gradient(
+    168deg,
+    rgb(56 189 248 / 0.1) 0%,
+    rgb(255 255 255 / 0.1) 38%,
+    rgb(7 11 18 / 0.55) 100%
+  );
+  --modal-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 24px 48px rgb(0 0 0 / 0.35);
+  --modal-solid: rgb(18 24 34 / 0.94);
+  --welcome-top: #0a121c;
+  --welcome-mid: #0b1410;
+  --veil-top: rgb(8 47 73 / 0.2);
   --panel-radius: 1.5rem;
   --panel-pad: 1.1rem;
   --prose-max: 36rem;
   --footer-fg: rgb(255 255 255 / 0.42);
   --footer-link: rgb(255 255 255 / 0.62);
+}
+
+/*
+ * Light theme. Tailwind v4 utilities read --color-white / --color-sky-* at
+ * runtime, so remapping them here flips every text-white/*, bg-white/*,
+ * border-white/* in the app without touching each component.
+ * Anything inside .theme-keep-dark (the hero over the sky scene) keeps white.
+ */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f3f7fb;
+  --bg-rgb: 243 247 251;
+  --foreground: #0f1b2d;
+  --ink-rgb: 15 27 45;
+  --field-rgb: 255 255 255;
+  --accent: #0284c7;
+  --accent-deep: #0369a1;
+  --link: #0369a1;
+  --muted: rgb(15 27 45 / 0.58);
+  --muted-strong: rgb(15 27 45 / 0.78);
+  --panel: rgb(255 255 255 / 0.7);
+  --panel-border: rgb(15 27 45 / 0.09);
+  --panel-bg: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.9) 0%,
+    rgb(255 255 255 / 0.74) 100%
+  );
+  --panel-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 8px 28px rgb(15 27 45 / 0.08);
+  --panel-solid: rgb(255 255 255 / 0.98);
+  --modal-border: rgb(15 27 45 / 0.1);
+  --modal-bg: linear-gradient(
+    168deg,
+    rgb(255 255 255 / 0.96) 0%,
+    rgb(243 247 251 / 0.9) 100%
+  );
+  --modal-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 24px 48px rgb(15 27 45 / 0.16);
+  --modal-solid: rgb(255 255 255 / 0.98);
+  --welcome-top: #e6f0f9;
+  --welcome-mid: #eef5f1;
+  --veil-top: rgb(56 189 248 / 0.14);
+  --footer-fg: rgb(15 27 45 / 0.55);
+  --footer-link: rgb(15 27 45 / 0.75);
+
+  --color-white: #0f1b2d;
+  --color-sky-200: #0369a1;
+  --color-sky-300: #0284c7;
+  --color-sky-400: #0ea5e9;
+}
+
+:root[data-theme="light"] .theme-keep-dark {
+  color-scheme: dark;
+  --color-white: #fff;
+  --color-sky-200: #bae6fd;
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --ink-rgb: 255 255 255;
 }
 
 @theme inline {
@@ -53,7 +134,12 @@ body {
   position: relative;
   min-height: 100dvh;
   width: 100%;
-  background: linear-gradient(to bottom, #0a121c, #0b1410 48%, #070b12);
+  background: linear-gradient(
+    to bottom,
+    var(--welcome-top),
+    var(--welcome-mid) 48%,
+    var(--background)
+  );
 }
 
 .welcome-shell-veil {
@@ -62,9 +148,9 @@ body {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgb(8 47 73 / 0.2),
+    var(--veil-top),
     transparent 42%,
-    rgb(7 11 18 / 0.8)
+    rgb(var(--bg-rgb) / 0.8)
   );
 }
 
@@ -113,7 +199,7 @@ body {
   font-size: 1.65rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: rgb(var(--ink-rgb));
 }
 
 @media (min-width: 640px) {
@@ -126,14 +212,14 @@ body {
   margin: 0.5rem 0 0;
   font-size: 0.875rem;
   line-height: 1.55;
-  color: rgb(255 255 255 / 0.55);
+  color: rgb(var(--ink-rgb) / 0.6);
 }
 
 .seo-prose {
   margin: 2.5rem auto 0;
   max-width: var(--prose-max);
   text-align: left;
-  color: rgb(255 255 255 / 0.48);
+  color: rgb(var(--ink-rgb) / 0.6);
   font-size: 0.875rem;
   line-height: 1.65;
 }
@@ -142,7 +228,7 @@ body {
   margin: 0 0 0.65rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgb(255 255 255 / 0.78);
+  color: rgb(var(--ink-rgb) / 0.82);
 }
 
 .seo-prose h2 + h2,
@@ -155,7 +241,7 @@ body {
 }
 
 .seo-prose a {
-  color: rgb(125 211 252 / 0.9);
+  color: var(--link);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
@@ -170,7 +256,7 @@ body {
   margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgb(255 255 255 / 0.78);
+  color: rgb(var(--ink-rgb) / 0.82);
 }
 
 .seo-faq-list {
@@ -179,30 +265,30 @@ body {
 
 .seo-faq-item {
   margin: 0 0 0.75rem;
-  border: 1px solid rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(var(--ink-rgb) / 0.08);
   border-radius: 0.85rem;
-  background: rgb(255 255 255 / 0.02);
+  background: rgb(var(--ink-rgb) / 0.03);
   padding: 0.85rem 1rem;
 }
 
 .seo-faq-item dt {
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgb(255 255 255 / 0.78);
+  color: rgb(var(--ink-rgb) / 0.82);
 }
 
 .seo-faq-item dd {
   margin: 0.4rem 0 0;
   font-size: 0.8125rem;
   line-height: 1.55;
-  color: rgb(255 255 255 / 0.48);
+  color: rgb(var(--ink-rgb) / 0.6);
 }
 
 .site-footer {
   position: relative;
   z-index: 20;
-  border-top: 1px solid rgb(255 255 255 / 0.1);
-  background: #070b12;
+  border-top: 1px solid rgb(var(--ink-rgb) / 0.1);
+  background: var(--background);
   padding: 2rem 1rem;
   text-align: center;
   font-size: 0.6875rem;
@@ -228,12 +314,12 @@ body {
 .site-footer a {
   color: var(--footer-link);
   text-decoration: underline;
-  text-decoration-color: rgb(255 255 255 / 0.18);
+  text-decoration-color: rgb(var(--ink-rgb) / 0.2);
   text-underline-offset: 0.15em;
 }
 
 .site-footer a:hover {
-  color: rgb(255 255 255 / 0.88);
+  color: rgb(var(--ink-rgb) / 0.9);
 }
 
 html {
@@ -270,7 +356,27 @@ body.search-modal-open {
   }
 }
 
+/* Content bed under the hero */
+.content-bed {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--bg-rgb) / 0.88),
+    var(--background)
+  );
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  html.theme-anim,
+  html.theme-anim body,
+  html.theme-anim .weather-panel,
+  html.theme-anim .site-footer {
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
   .card-rise {
     animation: card-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
@@ -298,18 +404,10 @@ body.search-modal-open {
 .weather-panel {
   border-radius: var(--panel-radius);
   border: 1px solid var(--panel-border);
-  background:
-    linear-gradient(
-      165deg,
-      rgb(56 189 248 / 0.06) 0%,
-      rgb(255 255 255 / 0.07) 42%,
-      rgb(255 255 255 / 0.045) 100%
-    );
+  background: var(--panel-bg);
   padding: var(--panel-pad);
   color: var(--foreground);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 10px 32px rgb(0 0 0 / 0.22);
+  box-shadow: var(--panel-shadow);
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
@@ -323,7 +421,7 @@ body.search-modal-open {
 
 @media (prefers-reduced-transparency: reduce) {
   .weather-panel {
-    background: rgb(18 24 34 / 0.96);
+    background: var(--panel-solid);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -333,23 +431,15 @@ body.search-modal-open {
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  color: rgb(238 243 248 / 0.5);
+  color: var(--muted);
 }
 
 /* Search modal — same glass language as weather panels, slightly lighter for overlay */
 .search-modal-panel {
   border-radius: var(--panel-radius);
-  border: 1px solid rgb(255 255 255 / 0.12);
-  background:
-    linear-gradient(
-      168deg,
-      rgb(56 189 248 / 0.1) 0%,
-      rgb(255 255 255 / 0.1) 38%,
-      rgb(7 11 18 / 0.55) 100%
-    );
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 24px 48px rgb(0 0 0 / 0.35);
+  border: 1px solid var(--modal-border);
+  background: var(--modal-bg);
+  box-shadow: var(--modal-shadow);
   backdrop-filter: blur(32px) saturate(150%);
   -webkit-backdrop-filter: blur(32px) saturate(150%);
 }
@@ -382,7 +472,7 @@ body.search-modal-open {
 
 @media (prefers-reduced-transparency: reduce) {
   .search-modal-panel {
-    background: rgb(18 24 34 / 0.94);
+    background: var(--modal-solid);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -401,7 +491,7 @@ body.search-modal-open {
   position: relative;
   height: 0.28rem;
   border-radius: 9999px;
-  background: rgb(255 255 255 / 0.12);
+  background: rgb(var(--ink-rgb) / 0.12);
   overflow: hidden;
 }
 
@@ -748,8 +838,8 @@ body.search-modal-open {
   height: 34%;
   background: linear-gradient(
     to top,
-    #070b12 0%,
-    rgba(7, 11, 18, 0.72) 42%,
+    var(--background) 0%,
+    rgb(var(--bg-rgb) / 0.72) 42%,
     transparent 100%
   );
 }
