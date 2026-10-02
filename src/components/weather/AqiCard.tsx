@@ -63,7 +63,7 @@ export function AqiCard({ aqi }: Props) {
       </p>
 
       <div className="mt-auto pt-5">
-        <div className="relative h-1.5 overflow-hidden rounded-full bg-black/35">
+        <div className="relative h-1.5 overflow-hidden rounded-full bg-[var(--well-strong)]">
           <div
             className="absolute inset-y-0 left-0 rounded-full"
             style={{
