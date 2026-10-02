@@ -12,7 +12,7 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: SITE.themeColor,
     orientation: "portrait-primary",
     categories: ["weather", "utilities"],
-    lang: "en-IN",
+    lang: "en-MY",
     icons: [
       {
         src: "/favicon-32x32.png",
