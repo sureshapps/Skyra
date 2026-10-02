@@ -1,7 +1,7 @@
 import { intlLocaleTag } from "@/lib/i18n/locale";
 import type { UiKey } from "@/lib/i18n/ui-source";
 
-const IST = "Asia/Kolkata";
+const MYT = "Asia/Kuala_Lumpur";
 
 const WIND_DIR_KEYS: UiKey[] = [
   "wind.n",
@@ -26,7 +26,7 @@ export function localeTagFor(code: string): string {
 export function formatLocalTime(iso: string, localeCode: string): string {
   try {
     return new Intl.DateTimeFormat(localeTagFor(localeCode), {
-      timeZone: IST,
+      timeZone: MYT,
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -39,9 +39,9 @@ export function formatLocalTime(iso: string, localeCode: string): string {
 export function formatWeekdayShort(isoDate: string, localeCode: string): string {
   try {
     return new Intl.DateTimeFormat(localeTagFor(localeCode), {
-      timeZone: IST,
+      timeZone: MYT,
       weekday: "short",
-    }).format(new Date(`${isoDate}T12:00:00+05:30`));
+    }).format(new Date(`${isoDate}T12:00:00+08:00`));
   } catch {
     return isoDate;
   }

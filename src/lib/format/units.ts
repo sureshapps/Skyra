@@ -1,4 +1,4 @@
-const IST = "Asia/­Kuala_Lumpur";
+const MYT = "Asia/Kuala_Lumpur";
 
 export function formatTempC(n: number): string {
   return `${Math.round(n)}°C`;
@@ -32,7 +32,7 @@ export function formatIstDate(isoDate: string): string {
       weekday: "short",
       day: "numeric",
       month: "short",
-    }).format(new Date(`${isoDate}T12:00:00+05:30`));
+    }).format(new Date(`${isoDate}T12:00:00+08:00`));
   } catch {
     return isoDate;
   }
