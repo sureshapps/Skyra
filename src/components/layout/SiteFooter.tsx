@@ -24,7 +24,7 @@ export function SiteFooter() {
           <a href={SITE.maintainerUrl} rel="author external noopener" target="_blank">
             {SITE.maintainer}
           </a>
-          . Weather data from Open-Meteo (CC BY 4.0).
+          . Weather data from Open-Meteo
         </p>
         <p>
           Images and media may belong to their respective owners. Alerts are
