@@ -145,7 +145,7 @@ export function UvIndexMap({ uvIndexMax, hourly, isDay = true }: Props) {
         ))}
       </div>
 
-      <div className="mt-4 flex h-[4.25rem] items-end gap-1 rounded-2xl bg-[var(--well)] px-2 pb-2 pt-2">
+      <div className="mt-4 flex h-[4.25rem] items-end gap-1 rounded-2xl bg-black/20 px-2 pb-2 pt-2">
         {bars.map((b) => {
           const px = Math.max(b.uv > 0 ? 6 : 3, (b.uv / chartMax) * 48);
           return (
