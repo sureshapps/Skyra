@@ -32,7 +32,7 @@ export function websiteJsonLd() {
     name: SITE.name,
     url: SITE.url,
     description: SITE.description,
-    inLanguage: ["en-MY", "en-ZH", "en-TA"],
+    inLanguage: ["en-MY", "ms-MY", "zh-MY", "ta-MY"],
     publisher: { "@type": "Organization", name: SITE.name },
     potentialAction: {
       "@type": "SearchAction",

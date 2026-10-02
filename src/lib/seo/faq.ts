@@ -13,7 +13,7 @@ export const SITE_FAQ = [
   {
     question: "Where does the forecast come from?",
     answer:
-      "Forecasts come from Open-Meteo. Place search uses Open-Meteo geocoding. GPS place names use BigDataCloud reverse geocoding. Alerts are built from those forecast fields, not from official IMD bulletins.",
+      "Forecasts come from Open-Meteo. Place search uses Open-Meteo geocoding. GPS place names use BigDataCloud reverse geocoding. Alerts are built from those forecast fields, not from official MetMalaysia bulletins.",
   },
   {
     question: "Can I use Malay, Chinese, or other languages?",
@@ -26,8 +26,8 @@ export const SITE_FAQ = [
       "Yes. Allow location in the browser and the app loads weather for that spot. You can also search by city or open a saved place.",
   },
   {
-    question: "Are the alerts official IMD warnings?",
+    question: "Are the alerts official MetMalaysia warnings?",
     answer:
-      "No. Alerts are tips derived from the live forecast so you can plan your day. They are not IMD colour bulletins.",
+      "No. Alerts are tips derived from the live forecast so you can plan your day. They are not official MetMalaysia warnings.",
   },
 ] as const;
