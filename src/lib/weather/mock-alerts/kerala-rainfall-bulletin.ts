@@ -5,132 +5,186 @@ import type {
   DistrictForecastRow,
   RainfallClass,
 } from "../types";
-import { KERALA_DISTRICTS } from "../locations/kerala-districts";
+import { KL_DISTRICTS } from "../locations/kl-districts";
 
-function isoDateOffset(days: number): string {
-  const d = new Date();
-  d.setHours(12, 0, 0, 0);
-  d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
-}
+const API = "https://api.data.gov.my/weather";
 
-/** Sample pattern inspired by IMD/KSDMA district rainfall charts */
-const DAY0: Record<string, { severity: AlertSeverity; rainfallClass: RainfallClass; label: string }> = {
-  tvpm: { severity: "yellow", rainfallClass: "heavy", label: "ISOL H" },
-  klm: { severity: "yellow", rainfallClass: "heavy", label: "ISOL H" },
-  pta: { severity: "orange", rainfallClass: "very_heavy", label: "ISOL H to VH" },
-  alp: { severity: "yellow", rainfallClass: "heavy", label: "ISOL H" },
-  ktm: { severity: "orange", rainfallClass: "very_heavy", label: "ISOL H to VH" },
-  ekm: { severity: "orange", rainfallClass: "very_heavy", label: "ISOL H to VH" },
-  idk: { severity: "orange", rainfallClass: "very_heavy", label: "ISOL H to VH" },
-  tsr: { severity: "yellow", rainfallClass: "heavy", label: "ISOL H" },
-  pkd: { severity: "yellow", rainfallClass: "heavy", label: "ISOL H" },
-  mlp: { severity: "orange", rainfallClass: "very_heavy", label: "ISOL H to VH" },
-  koz: { severity: "red", rainfallClass: "extremely_heavy", label: "XH" },
-  wyd: { severity: "red", rainfallClass: "extremely_heavy", label: "XH" },
-  knr: { severity: "red", rainfallClass: "extremely_heavy", label: "XH" },
-  ksgd: { severity: "red", rainfallClass: "extremely_heavy", label: "XH" },
+type ApiForecast = {
+  location: { location_id: string; location_name: string };
+  date: string;
+  morning_forecast: string;
+  afternoon_forecast: string;
+  night_forecast: string;
+  summary_forecast: string;
+  summary_when: string;
+  min_temp: number;
+  max_temp: number;
 };
 
-function dayPattern(dayIndex: number, districtId: string) {
-  if (dayIndex === 0) return DAY0[districtId] ?? { severity: "green" as const, rainfallClass: "moderate" as const, label: "L to M" };
-  if (dayIndex === 1) {
-    return { severity: "yellow" as const, rainfallClass: "heavy" as const, label: "ISOL H" };
-  }
-  return { severity: "green" as const, rainfallClass: "moderate" as const, label: "L to M" };
+type ApiWarning = {
+  warning_issue: { issued: string; title_bm: string; title_en: string };
+  valid_from: string;
+  valid_to: string;
+  heading_en: string;
+  text_en: string;
+  instruction_en: string;
+};
+
+type Level = { severity: AlertSeverity; rainfallClass: RainfallClass; label: string };
+
+const GREEN: Level = { severity: "green", rainfallClass: "moderate", label: "L to M" };
+const RANK: Record<string, number> = { green: 0, yellow: 1, orange: 2, red: 3 };
+
+/** MetMalaysia forecast text (BM) -> app severity */
+const FORECAST_MAP: Record<string, Level> = {
+  "tiada hujan": GREEN,
+  berjerebu: GREEN,
+  "hujan di satu dua tempat": GREEN,
+  "hujan di satu dua tempat di kawasan pantai": GREEN,
+  "hujan di satu dua tempat di kawasan pedalaman": GREEN,
+  "hujan di beberapa tempat": { severity: "yellow", rainfallClass: "heavy", label: "SCT R" },
+  "ribut petir di satu dua tempat": { severity: "yellow", rainfallClass: "heavy", label: "ISOL TS" },
+  "ribut petir di satu dua tempat di kawasan pantai": { severity: "yellow", rainfallClass: "heavy", label: "ISOL TS" },
+  "ribut petir di satu dua tempat di kawasan pedalaman": { severity: "yellow", rainfallClass: "heavy", label: "ISOL TS" },
+  hujan: { severity: "yellow", rainfallClass: "heavy", label: "R" },
+  "ribut petir di beberapa tempat": { severity: "orange", rainfallClass: "very_heavy", label: "SCT TS" },
+  "ribut petir di beberapa tempat di kawasan pedalaman": { severity: "orange", rainfallClass: "very_heavy", label: "SCT TS" },
+  "ribut petir": { severity: "orange", rainfallClass: "very_heavy", label: "TS" },
+};
+
+function levelOf(text: string): Level {
+  return FORECAST_MAP[text.trim().toLowerCase()] ?? GREEN;
 }
 
-export function buildKeralaSampleBoard(): DistrictForecastBoard {
-  const days = [0, 1, 2, 3, 4].map(isoDateOffset);
-  const rows: DistrictForecastRow[] = KERALA_DISTRICTS.map((d) => ({
+function worst(a: Level, b: Level): Level {
+  return RANK[b.severity] > RANK[a.severity] ? b : a;
+}
+
+async function getJson<T>(path: string, params: Record<string, string>, signal?: AbortSignal): Promise<T> {
+  const url = `${API}/${path}?${new URLSearchParams(params).toString()}`;
+  const res = await fetch(url, { signal });
+  if (!res.ok) throw new Error(`data.gov.my ${path} ${res.status}`);
+  return (await res.json()) as T;
+}
+
+async function fetchKlForecast(signal?: AbortSignal): Promise<ApiForecast[]> {
+  const rows = await getJson<ApiForecast[]>(
+    "forecast",
+    { contains: "Kuala Lumpur@location__location_name", limit: "50" },
+    signal,
+  );
+  // Prefer the state-level entry (St###) if several locations match
+  const state = rows.filter((r) => r.location.location_id.startsWith("St"));
+  const picked = state.length ? state : rows;
+  const id = picked[0]?.location.location_id;
+  return picked.filter((r) => r.location.location_id === id).sort((a, b) => a.date.localeCompare(b.date));
+}
+
+async function fetchKlWarnings(signal?: AbortSignal): Promise<ApiWarning[]> {
+  const all = await getJson<ApiWarning[]>("warning", { limit: "50" }, signal);
+  const now = Date.now();
+  return all.filter((w) => {
+    const active = new Date(w.valid_to).getTime() > now && new Date(w.valid_from).getTime() <= now;
+    return active && /kuala lumpur/i.test(`${w.heading_en} ${w.text_en}`);
+  });
+}
+
+/** MetMalaysia rain warning tiers: Alert (yellow) / Warning (orange) / Danger (red) */
+function warningSeverity(w: ApiWarning): AlertSeverity {
+  const t = `${w.heading_en} ${w.warning_issue.title_en}`.toLowerCase();
+  if (t.includes("danger")) return "red";
+  if (t.includes("warning") && !t.includes("alert")) return "orange";
+  return "yellow";
+}
+
+export async function fetchKlBoard(signal?: AbortSignal): Promise<DistrictForecastBoard> {
+  const fc = (await fetchKlForecast(signal)).slice(0, 5);
+  const days = fc.map((f) => f.date);
+
+  const perDay = fc.map((f) =>
+    [f.morning_forecast, f.afternoon_forecast, f.night_forecast, f.summary_forecast]
+      .map(levelOf)
+      .reduce(worst, GREEN),
+  );
+
+  // API gives one forecast for all of KL, so every area row shares it
+  const rows: DistrictForecastRow[] = KL_DISTRICTS.map((d) => ({
     districtId: d.id,
     districtName: d.name,
-    days: days.map((date, i) => {
-      const p = dayPattern(i, d.id);
-      return {
-        date,
-        severity: p.severity,
-        rainfallClass: p.rainfallClass,
-        label: p.label,
-      };
-    }),
+    days: days.map((date, i) => ({
+      date,
+      severity: perDay[i].severity,
+      rainfallClass: perDay[i].rainfallClass,
+      label: perDay[i].label,
+    })),
   }));
 
   return {
-    state: "Kerala",
+    state: "Kuala Lumpur",
     issuedAt: new Date().toISOString(),
     days,
     rows,
-    source: "ksdma-sample",
+    source: "metmalaysia",
   };
 }
 
-export function buildKeralaSampleBulletin(): AlertBulletin {
-  const board = buildKeralaSampleBoard();
+export async function fetchKlBulletin(signal?: AbortSignal): Promise<AlertBulletin> {
+  const [board, warnings] = await Promise.all([fetchKlBoard(signal), fetchKlWarnings(signal)]);
   const day0 = board.days[0];
+  const allIds = board.rows.map((r) => r.districtId);
 
-  const bySeverity = (sev: "red" | "orange" | "yellow") =>
-    board.rows.filter((r) => r.days[0]?.severity === sev).map((r) => r.districtId);
+  const warned = warnings.map((w) => ({ w, severity: warningSeverity(w) }));
+  const forecastSev = board.rows[0]?.days[0]?.severity ?? "green";
+  const highest = [forecastSev, ...warned.map((x) => x.severity)].reduce<AlertSeverity>(
+    (a, b) => (RANK[b] > RANK[a] ? b : a),
+    "green",
+  );
+
+  const groups = warned.map(({ w, severity }) => ({
+    severity,
+    date: day0,
+    districtIds: allIds,
+    rainfallClass: (severity === "red"
+      ? "extremely_heavy"
+      : severity === "orange"
+        ? "very_heavy"
+        : "heavy") as RainfallClass,
+    headline: w.heading_en || w.warning_issue.title_en,
+  }));
+
+  // No active warning: fall back to the forecast level for today
+  if (!groups.length && forecastSev !== "green") {
+    const l = board.rows[0].days[0];
+    groups.push({
+      severity: l.severity,
+      date: day0,
+      districtIds: allIds,
+      rainfallClass: l.rainfallClass,
+      headline: "Rain likely today",
+    });
+  }
+
+  const newest = warnings
+    .map((w) => w.warning_issue.issued)
+    .sort()
+    .pop();
 
   return {
-    id: `kerala-sample-${day0}`,
-    regionLabel: "Kerala",
-    issuedAt: board.issuedAt,
-    authorityLine: "IMD-KSEOC-KSDMA (sample bulletin for demo)",
-    highestSeverity: "red",
-    groups: [
-      {
-        severity: "red",
-        date: day0,
-        districtIds: bySeverity("red"),
-        rainfallClass: "extremely_heavy",
-        headline: "Red alert – extremely heavy rain likely",
-      },
-      {
-        severity: "orange",
-        date: day0,
-        districtIds: bySeverity("orange"),
-        rainfallClass: "very_heavy",
-        headline: "Orange alert – heavy to very heavy rain likely",
-      },
-      {
-        severity: "yellow",
-        date: day0,
-        districtIds: bySeverity("yellow"),
-        rainfallClass: "heavy",
-        headline: "Yellow alert – isolated heavy rain likely",
-      },
-    ],
+    id: `kl-live-${day0}`,
+    regionLabel: "Kuala Lumpur",
+    issuedAt: newest ?? board.issuedAt,
+    authorityLine: "MetMalaysia via data.gov.my",
+    highestSeverity: highest,
+    groups,
     tips: [
-      {
-        id: "t1",
-        text: "In hilly areas, move to safer ground in daylight if landslides are a risk.",
-        priority: 1,
-      },
-      {
-        id: "t2",
-        text: "Do not enter rivers, streams, or flooded roads.",
-        priority: 1,
-      },
-      {
-        id: "t3",
-        text: "Call 1077 for district control room help.",
-        priority: 1,
-        phoneHref: "tel:1077",
-      },
-      {
-        id: "t4",
-        text: "Avoid night travel in the hills while the red alert is active.",
-        priority: 2,
-      },
-      {
-        id: "t5",
-        text: "Keep an emergency kit ready (torch, medicines, documents, water).",
-        priority: 2,
-      },
+      { id: "t1", text: "Avoid low-lying areas, underpasses and riverside roads where flash floods are likely.", priority: 1 },
+      { id: "t2", text: "Do not drive through flooded roads or enter drains and rivers.", priority: 1 },
+      { id: "t3", text: "Call 999 for emergency help.", priority: 1, phoneHref: "tel:999" },
+      { id: "t4", text: "Stay clear of hillside slopes and retaining walls during heavy rain.", priority: 2 },
+      { id: "t5", text: "Keep an emergency kit ready (torch, medicines, documents, water).", priority: 2 },
     ],
     board,
-    sourceUrl: "https://sdma.kerala.gov.in/rainfall-2/",
-    source: "ksdma-sample",
+    sourceUrl: "https://www.met.gov.my/",
+    source: "metmalaysia",
   };
 }
