@@ -18,9 +18,9 @@ import { UseMyLocationButton } from "@/components/geo/UseMyLocationButton";
 import { SavePlaceButton } from "@/components/geo/SavePlaceButton";
 import { LocationSearch } from "@/components/layout/LocationSearch";
 import { GlassCard } from "@/components/weather/GlassCard";
+import { LiveClock } from "@/components/layout/LiveClock";
 import { daySummary } from "@/lib/format/day-summary";
-import { intlLocaleTag } from "@/lib/i18n/locale";
-import { useLocale, useT } from "@/components/i18n/LocaleProvider";
+import { useT } from "@/components/i18n/LocaleProvider";
 import {
   lottieSrcForCondition,
   sceneGradientForCondition,
@@ -37,32 +37,6 @@ type Props = {
   todaySummary?: string;
 };
 
-function formatLocalStamp(iso: string, localeTag: string): string {
-  try {
-    const m = iso.match(
-      /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/,
-    );
-    const d = m
-      ? new Date(
-          Number(m[1]),
-          Number(m[2]) - 1,
-          Number(m[3]),
-          Number(m[4]),
-          Number(m[5]),
-        )
-      : new Date(iso);
-    if (Number.isNaN(d.getTime())) return "";
-    return new Intl.DateTimeFormat(localeTag, {
-      weekday: "short",
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    }).format(d);
-  } catch {
-    return "";
-  }
-}
-
 export function WeatherAppScreen({
   snapshot,
   nearYou,
@@ -71,9 +45,7 @@ export function WeatherAppScreen({
   todaySummary: todaySummaryProp,
 }: Props) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const { locale } = useLocale();
   const t = useT();
-  const localeTag = intlLocaleTag(locale);
 
   useEffect(() => {
     if (!searchOpen) return;
@@ -104,7 +76,6 @@ export function WeatherAppScreen({
     isDay,
     current.wmoCode,
   );
-  const stamp = formatLocalStamp(current.observedAt, localeTag);
   const high = today != null ? Math.round(today.maxTempC) : null;
   const low = today != null ? Math.round(today.minTempC) : null;
   const temp = Math.round(current.temperatureC);
@@ -184,15 +155,8 @@ export function WeatherAppScreen({
                     <span>{t("hero.feelsLike")} {feels}°</span>
                   </>
                 ) : null}
-                {stamp ? (
-                  <>
-                    <span className="hero-details-sep" aria-hidden>
-                      ·
-                    </span>
-                    <span>{stamp}</span>
-                  </>
-                ) : null}
               </p>
+              <LiveClock className="mt-2 text-sm leading-snug text-white/80" />
             </div>
             <div className="hero-lottie shrink-0" aria-hidden>
               <WeatherLottie
