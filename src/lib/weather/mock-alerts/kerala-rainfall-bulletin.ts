@@ -89,8 +89,14 @@ async function fetchKlWarnings(signal?: AbortSignal): Promise<ApiWarning[]> {
   });
 }
 
+type GroupSeverity = "yellow" | "orange" | "red";
+
+function isGroupSeverity(s: AlertSeverity): s is GroupSeverity {
+  return s === "yellow" || s === "orange" || s === "red";
+}
+
 /** MetMalaysia rain warning tiers: Alert (yellow) / Warning (orange) / Danger (red) */
-function warningSeverity(w: ApiWarning): AlertSeverity {
+function warningSeverity(w: ApiWarning): GroupSeverity {
   const t = `${w.heading_en} ${w.warning_issue.title_en}`.toLowerCase();
   if (t.includes("danger")) return "red";
   if (t.includes("warning") && !t.includes("alert")) return "orange";
@@ -140,7 +146,7 @@ export async function fetchKlBulletin(signal?: AbortSignal): Promise<AlertBullet
     "green",
   );
 
-  const groups = warned.map(({ w, severity }) => ({
+  const groups: AlertBulletin["groups"] = warned.map(({ w, severity }) => ({
     severity,
     date: day0,
     districtIds: allIds,
@@ -153,8 +159,8 @@ export async function fetchKlBulletin(signal?: AbortSignal): Promise<AlertBullet
   }));
 
   // No active warning: fall back to the forecast level for today
-  if (!groups.length && forecastSev !== "green") {
-    const l = board.rows[0].days[0];
+  const l = board.rows[0]?.days[0];
+  if (!groups.length && l && isGroupSeverity(l.severity)) {
     groups.push({
       severity: l.severity,
       date: day0,
