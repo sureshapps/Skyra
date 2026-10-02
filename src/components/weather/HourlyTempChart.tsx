@@ -170,8 +170,8 @@ export function HourlyTempChart({
           >
             <defs>
               <linearGradient id="hourlyTempStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#fde68a" />
-                <stop offset="100%" stopColor="#fbbf24" />
+                <stop offset="0%" style={{ stopColor: "var(--line-a)" }} />
+                <stop offset="100%" style={{ stopColor: "var(--line-b)" }} />
               </linearGradient>
             </defs>
             <polyline
@@ -192,7 +192,7 @@ export function HourlyTempChart({
                   cy={y}
                   r={i === 0 ? 4 : 3}
                   fill="white"
-                  stroke="#fbbf24"
+                  style={{ stroke: "var(--line-b)" }}
                   strokeWidth="2"
                 />
               );
