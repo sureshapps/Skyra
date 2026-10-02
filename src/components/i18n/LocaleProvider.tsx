@@ -111,7 +111,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     setPreference(pref);
     setLocaleState(resolved);
     setLocaleCookie(pref, false);
-    document.documentElement.lang = resolved === "en" ? "en-IN" : resolved;
+    document.documentElement.lang = resolved === "en" ? "en-MY" : resolved;
     void loadStrings(resolved);
   }, [loadStrings]);
 
@@ -141,7 +141,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
         /* ignore */
       }
       setLocaleCookie(stored, true);
-      document.documentElement.lang = resolved === "en" ? "en-IN" : resolved;
+      document.documentElement.lang = resolved === "en" ? "en-MY" : resolved;
       setReady(false);
       void loadStrings(resolved).then(() => router.refresh());
     },
