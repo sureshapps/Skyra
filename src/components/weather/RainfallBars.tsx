@@ -34,7 +34,7 @@ export function RainfallBars({ hourly, last24hMm }: Props) {
 
       {hasRain ? (
         <div
-          className="mt-4 flex flex-1 items-end gap-1 rounded-2xl bg-black/20 px-1.5 pb-1.5 pt-5"
+          className="mt-4 flex flex-1 items-end gap-1 rounded-2xl bg-[var(--well)] px-1.5 pb-1.5 pt-5"
           style={{ minHeight: CHART_H + 28 }}
         >
           {hours.map((h) => {
@@ -50,7 +50,7 @@ export function RainfallBars({ hourly, last24hMm }: Props) {
                 <div
                   className={`w-full max-w-[1.1rem] rounded-t-md ${
                     mm > 0
-                      ? "bg-gradient-to-t from-sky-600 via-sky-400 to-sky-200"
+                      ? "bg-gradient-to-t from-[#0284c7] via-[#38bdf8] to-[#bae6fd]"
                       : "bg-white/[0.07]"
                   }`}
                   style={{ height: px }}
@@ -60,7 +60,7 @@ export function RainfallBars({ hourly, last24hMm }: Props) {
           })}
         </div>
       ) : (
-        <div className="mt-4 flex flex-1 flex-col items-center justify-center rounded-2xl bg-black/20 px-3 py-6 text-center">
+        <div className="mt-4 flex flex-1 flex-col items-center justify-center rounded-2xl bg-[var(--well)] px-3 py-6 text-center">
           <Drop className="size-7 text-white/20" weight="duotone" aria-hidden />
           <p className="mt-2 break-words text-sm text-white/65">{t("panel.rain.dryNow")}</p>
         </div>
